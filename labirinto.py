@@ -59,11 +59,11 @@ class FilaFronteira(PilhaFronteira):
 class AEstrela(PilhaFronteira):
 
     #sobrescrevendo construtor contendo informação do objetivo
-    def __init__(self, inicio, objetivo):
+    def __init__(self, inicio, objetivo, w = 1):
         self.fronteira = []
         self.inicio = inicio
         self.objetivo = objetivo
-        self.w = 1
+        self.w = w
 
     #sobrescrevendo função remove para realizar avaliação f(n) = g(n) + wh(n)
     def remove(self):
@@ -77,7 +77,7 @@ class AEstrela(PilhaFronteira):
             for index, node in enumerate(self.fronteira):
                 distanciaManhattan = cityblock(node.estado, self.objetivo) 
 
-                funcao = distanciaManhattan + node.percorrido
+                funcao = node.percorrido + ( self.w * distanciaManhattan )
 
                 if funcao  < menorValorF:
                     menorValorF = funcao
@@ -179,7 +179,7 @@ class Labirinto():
         # Inicializa a fronteira apenas para o posição inicial
         inicio = No(estado=self.inicio, pai=None, acao=None, percorrido=0)
         # fronteira = PilhaFronteira() #Pilha -> Profundidade
-        fronteira = AEstrela(self.inicio, self.objetivo)
+        fronteira = AEstrela(self.inicio, self.objetivo, 1)
         fronteira.add(inicio)
 
         # Inicializa um conjunto vazio de estados não explorados
