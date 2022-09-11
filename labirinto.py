@@ -82,9 +82,6 @@ class AEstrela(PilhaFronteira):
                 if funcao  < menorValorF:
                     menorValorF = funcao
                     indiceMenorValor = index
-                print("A fronteira é: ", node.estado, " f(n) = ", distanciaManhattan," + ", node.percorrido, " = ", funcao)
-            print("menor indice é: ", indiceMenorValor)
-            print("----------------------------------")
             no = self.fronteira[indiceMenorValor]
             del(self.fronteira[indiceMenorValor])
             return no
